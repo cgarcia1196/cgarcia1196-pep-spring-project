@@ -20,4 +20,10 @@ public class exceptionAndErrorController {
         return e.getMessage() + " username is already used please choose another username.";
     }
 
+    @ExceptionHandler(loginInvalidException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public @ResponseBody String handleLoginInvalid(loginInvalidException e){
+        return "Cannot login username or password incorrect.";
+    }
+
 }

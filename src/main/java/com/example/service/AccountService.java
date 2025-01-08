@@ -1,8 +1,11 @@
 package com.example.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Account;
+import com.example.exception.loginInvalidException;
 import com.example.exception.registrationDuplicateNameException;
 import com.example.exception.registrationInvalidParamsException;
 import com.example.repository.AccountRepository;
@@ -33,16 +36,25 @@ public class AccountService {
         //throws error 
         //code 409 conflict error
         //username already exists
-        //
-        //if(account.getUsername().equals()) @ToDo connect to database and check if it contains the username
         if(accRepository.findByUsername(account.getUsername()).isPresent()){
             throw new registrationDuplicateNameException(account.getUsername());
         }
 
         //200 OK
         //username is not blank, the password is at least 4 characters long, and an Account with that username does not already exist
-        //
-        //return new Account(account.getUsername(), account.getPassword()); @ToDO connect to database and perisist new account to database
         return accRepository.save(account);
     }
+
+    public Account loginUser(Account account) {
+        Optional<Account> optionalAccount = accRepository.findByUsername(account.getUsername());
+        if(optionalAccount.isPresent()){
+             Account repoAcc = optionalAccount.get();
+             if(repoAcc.getPassword().equals(account.getPassword())){
+                return repoAcc;
+             }
+        }
+        throw new loginInvalidException();
+    }
+
+    
 }
