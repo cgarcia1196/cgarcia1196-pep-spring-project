@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +49,11 @@ public class SocialMediaController {
     @PostMapping("/messages")
     public @ResponseBody ResponseEntity<Message> addMessage(@RequestBody Message message){
         return new ResponseEntity<>(msgServ.addMessage(message), HttpStatus.OK);
+    }
+
+    @GetMapping("/messages")
+    public @ResponseBody ResponseEntity<List<Message>> getAllMessages(){
+        return new ResponseEntity<>(msgServ.getAllMessages(), HttpStatus.OK);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -39,5 +40,10 @@ public class MessageService {
         //message ok
         return msgRepo.save(message);
 
+    }
+
+
+    public List<Message> getAllMessages() {
+        return (List<Message>)msgRepo.findAll();
     }
 }
