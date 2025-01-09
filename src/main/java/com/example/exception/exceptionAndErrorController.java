@@ -23,7 +23,13 @@ public class exceptionAndErrorController {
     @ExceptionHandler(loginInvalidException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public @ResponseBody String handleLoginInvalid(loginInvalidException e){
-        return "Cannot login username or password incorrect.";
+        return "Cannot login. username or password incorrect.";
+    }
+
+    @ExceptionHandler(invalidMessageException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public @ResponseBody String handleInvalidMessage(invalidMessageException e){
+        return e.getMessage();
     }
 
 }

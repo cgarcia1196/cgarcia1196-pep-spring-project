@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
@@ -26,11 +27,11 @@ import com.example.service.MessageService;
 public class SocialMediaController {
     
     private AccountService accServ;
-    //private MessageService msgServ;
+    private MessageService msgServ;
     @Autowired
-    public SocialMediaController(AccountService accServ){//, MessageService msgServ){
+    public SocialMediaController(AccountService accServ, MessageService msgServ){
         this.accServ = accServ;
-        //this.msgServ = msgServ;
+        this.msgServ = msgServ;
     }
 
     @PostMapping("/register")
@@ -41,6 +42,11 @@ public class SocialMediaController {
     @PostMapping("/login")
     public @ResponseBody ResponseEntity<Account> loginUser(@RequestBody Account account){
         return new ResponseEntity<>(accServ.loginUser(account), HttpStatus.OK);
+    }
+
+    @PostMapping("/messages")
+    public @ResponseBody ResponseEntity<Message> addMessage(@RequestBody Message message){
+        return new ResponseEntity<>(msgServ.addMessage(message), HttpStatus.OK);
     }
 
 }
