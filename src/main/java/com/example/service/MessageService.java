@@ -49,10 +49,21 @@ public class MessageService {
 
 
     public Message findMessageById(int messageId) {
-        Optional<Message> optMsg = msgRepo.findMessageByMessageId(messageId);
+        Optional<Message> optMsg = msgRepo.findById(messageId);//findMessageByMessageId(messageId);
         if(optMsg.isPresent()){
             return optMsg.get();
         }
         return null;
+    }
+
+
+    public Integer deleteMessageById(int messageId) {
+        Optional<Message> optMessage = msgRepo.findById(messageId);
+        if(optMessage.isPresent()){
+            msgRepo.deleteById(messageId);
+            return 1;
+        }
+        return null;
+        
     }
 }
