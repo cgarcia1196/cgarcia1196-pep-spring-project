@@ -46,4 +46,13 @@ public class MessageService {
     public List<Message> getAllMessages() {
         return (List<Message>)msgRepo.findAll();
     }
+
+
+    public Message findMessageById(int messageId) {
+        Optional<Message> optMsg = msgRepo.findMessageByMessageId(messageId);
+        if(optMsg.isPresent()){
+            return optMsg.get();
+        }
+        return null;
+    }
 }
