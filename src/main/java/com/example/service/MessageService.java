@@ -86,4 +86,11 @@ public class MessageService {
         msgRepo.save(repoMessage);
         return 1;
     }
+
+
+    public List<Message> getAllMessagesByAccountId(Integer accountId) {
+        List<Message> accMessages = msgRepo.findByPostedBy(accountId);
+
+        return accMessages;
+    }
 }
