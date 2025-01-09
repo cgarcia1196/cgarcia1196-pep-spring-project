@@ -66,4 +66,24 @@ public class MessageService {
         return null;
         
     }
+
+
+    public Integer updateMessageById(Integer messageId, Message newMessage) {
+        //check if message is valid
+
+        //check if message exists
+        Optional<Message> optMsg = msgRepo.findById(messageId);
+        if(optMsg.isEmpty()){
+            throw new invalidMessageException("Message does not exist");
+        }
+        //check if message less than 255 and not blank
+        if(newMessage.getMessageText().isBlank() || newMessage.getMessageText().length() > 255){
+            throw new invalidMessageException("Message cannot be blank and must be less than 255 characters.");
+        }
+        //message OK
+        Message repoMessage = optMsg.get();
+        repoMessage.setMessageText(newMessage.getMessageText());
+        msgRepo.save(repoMessage);
+        return 1;
+    }
 }
